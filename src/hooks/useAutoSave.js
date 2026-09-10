@@ -1,0 +1,1 @@
+import {useEffect} from 'react';export default function useAutoSave(enabled,documents,setStatus){useEffect(()=>{if(!enabled)return;const t=setTimeout(()=>{try{localStorage.setItem('markflow.documents',JSON.stringify(documents));setStatus('Saved')}catch{setStatus('Save failed')}},700);return()=>clearTimeout(t)},[enabled,documents,setStatus])}

@@ -1,0 +1,1 @@
+import {Link} from 'react-router-dom';export default function NotFound(){return <div className="not-found"><div><div className="brand-mark big">404</div><h1>Page not found</h1><p>The workspace you requested doesn't exist.</p><Link to="/">Return to MarkFlow</Link></div></div>}
