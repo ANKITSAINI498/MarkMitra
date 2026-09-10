@@ -1,1 +1,73 @@
-import {useEffect,useState} from 'react';import {Link} from 'react-router-dom';import {ArrowLeft,BookOpen,Code2,FileText,NotebookPen} from 'lucide-react';import {useMarkdown} from '../context/MarkdownContext';import Loading from '../components/common/Loading';const icons={book:BookOpen,note:NotebookPen,api:Code2,react:Code2,java:Code2,journal:NotebookPen};export default function Templates(){const [items,setItems]=useState(null);const {createDocument,notify}=useMarkdown();useEffect(()=>{fetch('/data/templates.json').then(r=>{if(!r.ok)throw new Error();return r.json()}).then(setItems).catch(()=>setItems([]))},[]);return <div className="template-page"><div className="template-top"><Link to="/" className="back-link"><ArrowLeft size={16}/> Workspace</Link><div><span className="eyebrow">MarkFlow Library</span><h1>Start from a template</h1><p>Production-ready Markdown starters for your next note.</p></div></div>{!items?<Loading label="Loading templates..."/>:<div className="template-grid">{items.map(t=>{const I=icons[t.icon]||FileText;return <article className="template-card" key={t.id}><div className="template-icon"><I size={22}/></div><h3>{t.title}</h3><p>{t.content.slice(0,100).replace(/[#*`]/g,'')}…</p><button onClick={()=>{createDocument(t.title,t.content);notify(`${t.title} template created`);location.href='/'}}>Use template <span>→</span></button></article>})}</div>}</div>}
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowLeft,
+  BookOpen,
+  Code2,
+  FileText,
+  NotebookPen,
+} from "lucide-react";
+import { useMarkdown } from "../context/MarkdownContext";
+import Loading from "../components/common/Loading";
+const icons = {
+  book: BookOpen,
+  note: NotebookPen,
+  api: Code2,
+  react: Code2,
+  java: Code2,
+  journal: NotebookPen,
+};
+export default function Templates() {
+  const [items, setItems] = useState(null);
+  const { createDocument, notify } = useMarkdown();
+  useEffect(() => {
+    fetch("/data/templates.json")
+      .then((r) => {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
+      .then(setItems)
+      .catch(() => setItems([]));
+  }, []);
+  return (
+    <div className="template-page">
+      <div className="template-top">
+        <Link to="/" className="back-link">
+          <ArrowLeft size={16} /> Workspace
+        </Link>
+        <div>
+          <span className="eyebrow">MarkFlow Library</span>
+          <h1>Start from a template</h1>
+          <p>Production-ready Markdown starters for your next note.</p>
+        </div>
+      </div>
+      {!items ? (
+        <Loading label="Loading templates..." />
+      ) : (
+        <div className="template-grid">
+          {items.map((t) => {
+            const I = icons[t.icon] || FileText;
+            return (
+              <article className="template-card" key={t.id}>
+                <div className="template-icon">
+                  <I size={22} />
+                </div>
+                <h3>{t.title}</h3>
+                <p>{t.content.slice(0, 100).replace(/[#*`]/g, "")}…</p>
+                <button
+                  onClick={() => {
+                    createDocument(t.title, t.content);
+                    notify(`${t.title} template created`);
+                    location.href = "/";
+                  }}
+                >
+                  Use template <span>→</span>
+                </button>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
