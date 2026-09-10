@@ -4,12 +4,12 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { MarkdownProvider } from "./context/MarkdownContext";
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.DEV ? "/" : "/MarkMitra/"}>
       <MarkdownProvider>
         <App />
       </MarkdownProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );
