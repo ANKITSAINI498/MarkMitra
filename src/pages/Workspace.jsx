@@ -40,7 +40,7 @@ export default function Workspace() {
       setH = () => setSettingsOpen(true),
       cmd = () => setCommandOpen(true),
       search = () => setSearchOpen(true),
-      templates = () => (location.href = "/templates"),
+      templates = () => (location.href = "/"),
       imported = (e) => {
         const f = e.detail;
         if (!f?.content && f?.content !== "") return;
